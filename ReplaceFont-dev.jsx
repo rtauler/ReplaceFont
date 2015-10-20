@@ -16,8 +16,6 @@ function collectLayers (theParent, allLayers) {
                     };  
           return allLayers  
           };
-
-
 /**
  * It changes the fonts form source to destination
  *
@@ -29,10 +27,14 @@ function changeFont( layerList, fontData, index ) {
 
      if (typeof fontData.inFont === 'undefined') {
           fontData.inFont = prompt("input Font");
+          fontData.inSize = prompt("input insize");
           fontData.outFont = prompt("output Font");
+          props.color.rgb.hexValue = prompt("output color");
+          props.size = prompt("output size")+"px";
           
+
           if (!fontData.inFont || !fontData.outFont) {
-               alert("cazurro mete las fuentes!!!");
+               alert("Please insert fonts");
                return;
           }
      }
@@ -41,10 +43,10 @@ function changeFont( layerList, fontData, index ) {
           // cas base de la recursivitat
           //alert('finish');
      } else {
-          // Change the sitle for the current index
+          // Change the sytle for the current index
           var theLayer = layerList[index];
           var prop;
-          if((theLayer.kind == LayerKind.TEXT) && (theLayer.textItem.font == fontData.inFont) ) {
+          if((theLayer.kind == LayerKind.TEXT) && (theLayer.textItem.font == fontData.inFont) && (theLayer.textItem.size == fontData.inSize)) {
                for (prop in fontData.props){
                     
                     theLayer.textItem[prop] = fontData.props[prop];
@@ -52,7 +54,7 @@ function changeFont( layerList, fontData, index ) {
                theLayer.textItem.font = fontData.outFont;
           }
 
-          changeFont(layerList, fontData, index -1);
+          changeFont(layerList, fontData, index -1); 
 
      }
 }
@@ -60,7 +62,16 @@ function changeFont( layerList, fontData, index ) {
 
 // get the layers
 var theLayers = collectLayers(app.activeDocument, []);
-// chage the font
-changeFont(theLayers, { inFont: 'ArialMT', outFont: 'ComicSansMS', props: { size: '20px' } }, theLayers.length - 1);
+// initial props
+var props = {
+     color: new SolidColor,
+     size : ""
+};
+// porps modifiers
 
-// © David Luna & Roman Tauler 2015
+// chage the font
+changeFont(theLayers, { props: props }, theLayers.length - 1);
+
+
+// inFont: 'ArialMT', outFont: 'ComicSansMS', props: { size: '20px' }
+// © David Luna 2015
