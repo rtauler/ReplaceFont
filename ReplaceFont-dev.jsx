@@ -40,7 +40,7 @@ function changeFont( layerList, fontData, index ) {
      }
 
      if (index < 0) {
-          // cas base de la recursivitat
+          // recursivity
           //alert('finish');
      } else {
           // Change the sytle for the current index
@@ -74,4 +74,4 @@ changeFont(theLayers, { props: props }, theLayers.length - 1);
 
 
 // inFont: 'ArialMT', outFont: 'ComicSansMS', props: { size: '20px' }
-// © David Luna 2015
+// © David Luna & Roman Tauler 2015
